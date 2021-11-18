@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/AddStock" method="POST" autocomplete="off">
+
+
+    <input type="text" name="id_almacen" placeholder="SERIAL ALMACEN">
+
+    <input type="text" name="id_usuario" placeholder="Encargado">
+
+    <input type="text" name="desc_almacen" placeholder="NOMBRE">
+
+    <button type="submit">Enviar</button>
+
+</form>
+
+<table style="text-align: center;" border="2px">
+<thead>
+    <tr>
+        <th>COD ALMACEN</th>
+        <th>ENCARGADO</th>
+        <th>NOMBRE</th>
+        <th>ESTADO</th>
+    </tr>
+</thead>
+    
+
+<h2>PERMISOS</h2>
+
+{% for stock in data %}
+    
+    <tr>
+            <td>{{stock.0}}</td>
+            <td>{{stock.1}}</td>
+            <td>{{stock.2}}</td>
+        {% if stock.3 == 1 %}
+            <td>Activo</td>
+        {% else %}
+            <td>INACTIVO</td>
+
+        {% endif %}
+            <td><form action="/DeleteStock/{{stock.0}}" method="POST">
+                    <button  type="submit">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+            <td>
+                <a href="/UpdateStock/{{stock.0}}">Actualizar</a>
+            </td>
+
+    </tr>
+    
+
+{% endfor %} 
+</table>
+
+{% endblock %}

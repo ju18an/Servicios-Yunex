@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for user in data %}
+
+<form action="/UpdateUser/{{user.0}}" method="POST" autocomplete="off">
+
+    <input type="text" name="id_usuario" value="{{user.0}}" placeholder="ID USUARIO">
+
+    <input type="text" name="nombre" value="{{user.1}}" placeholder="NOMBRE">
+
+    <input type="text" name="apellido" value="{{user.2}}" placeholder="APELLIDO">
+
+    <input type="text" name="correo_electronico" value="{{user.3}}" placeholder="CORREO ELECTRONICO">
+
+    <input type="text" name="telefono" value="{{user.4}}" placeholder="TELEFONO">
+
+    <select name="rol_id_rol" id="rol">
+        <option value="">Seleccione un rol</option>
+            {% for rol in datarol %}
+                <option value="{{rol.0}}">{{rol.1}}</option>            
+            {% endfor %}
+    </select>
+
+    <select name="permisos_id_permisos" id="permisos">
+        <option value="">Seleccione un permiso</option>
+            {% for per in dataper %}
+                <option value="{{per.0}}">{{per.1}}</option>            
+            {% endfor %}
+    </select>
+
+    <button type="submit">
+        Actualizar
+    </button>
+</form>
+
+{% endfor %}
+{% endblock %}

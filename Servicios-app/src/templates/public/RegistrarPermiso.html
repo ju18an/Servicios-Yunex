@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/AddPermiso" method="POST" autocomplete="off">
+
+    <input type="text" name="id_permisos" placeholder="PER_##">
+
+    <input type="text" name="desc_permisos" placeholder="DESCRIPCIÓN DEL PERMISO">
+
+    <button type="submit">
+        Enviar
+    </button>
+
+</form>
+
+<table style="text-align: center;" border="2px">
+<thead>
+    <tr>
+        <th>ID Permiso</th>
+        <th>Nombre</th>
+    </tr>
+</thead>
+    
+
+<h2>PERMISOS</h2>
+
+{% for acce in data %}
+    
+    <tr>
+            <td>{{acce.0}}</td>
+            <td>{{acce.1}}</td>
+            <td>
+                <a href="/UpdateAccess/{{acce.0}}">Actualizar</a>
+            </td>
+    </tr>
+
+{% endfor %} 
+</table>
+
+{% endblock %}

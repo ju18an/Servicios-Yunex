@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/TranslateModulo" method="post" autocomplete="off">
+
+
+    <h2>ALM ORIGEN</h2>
+    <select name="alm_origen" id="">
+        <option value="">Seleccione</option>
+    {% for alm in dataalm %}
+        <option value="{{alm.0}}">{{alm.2}}</option>
+    {% endfor %}
+    </select>
+    
+    <button type="submit">Enviar</button>
+
+</form><br>
+
+    <table style="text-align: center;" border="2px">
+        <thead>
+            <tr>
+                <th>Nº SERIAL</th>
+                <th>NOMBRE</th>
+                <th>PROYECTO</th>
+                <th>FABRICANTE</th>
+                <th>PROVEEDOR</th>
+                <th>CLIENTE</th>
+                <th>MODELO</th>
+                <th>FECHA CREACION</th>
+                <th>FECHA DE OPERACION</th>
+                <th>UBICACION</th>
+            </tr>
+        </thead>
+            
+        
+        
+        {% for mod in data %}
+            
+            <tr>
+                    <td>{{mod.0}}</td>
+                    <td>{{mod.1}}</td>
+                    <td>{{mod.2}}</td>
+                    <td>{{mod.3}}</td>
+                    <td>{{mod.4}}</td>
+                    <td>{{mod.5}}</td>
+                    <td>{{mod.6}}</td>
+                    <td>{{mod.7}}</td>
+                    <td>{{mod.8}}</td>
+                    <td>{{mod.9}}</td>
+        
+                    <td>
+                        <form action="/TranslateModuloFin/{{mod.0}}" method="POST"></form>
+                            <button type="submit">+</button>   
+                        </form>  
+                    </td>
+                    
+            </tr>
+        
+        {% endfor %} 
+           
+
+    
+
+        </table>
+
+{% endblock %}
