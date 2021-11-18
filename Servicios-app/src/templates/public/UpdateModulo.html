@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for mod in data %}
+
+<form action="/UpdateModulo/{{mod.0}}" method="POST" autocomplete="off">
+
+
+    <input type="text" name="id_modulo" value="{{mod.0}}" placeholder="Nº SERIAL" readonly="readonly"><br><br>
+
+    <input type="text" name="nombre" value="{{mod.1}}"  placeholder="NOMBRE"><br><br>
+
+    <input type="text" name="proyecto" value="{{mod.2}}"  placeholder="PROYECTO"><br><br>
+
+    <input type="text" name="fabricante" value="{{mod.3}}" placeholder="FABRICANTE"><br><br>
+
+    <input type="text" name="proveedor" value="{{mod.4}}" placeholder="PROVEEDOR"><br><br>
+
+    <input type="text" name="cliente" value="{{mod.5}}"  placeholder="CLIENTE"><br><br>
+
+    <input type="text" name="modelo" value="{{mod.6}}"  placeholder="MODELO"><br><br>
+
+    <input type="date" name="fecha_creacion" value="{{mod.7}}"  placeholder="FECHA DE CREACION"><br><br>
+
+    <input type="date" name="fecha_inicio_operacion" value="{{mod.8}}"  placeholder="FECHA DE INICIO DE OPERACION"><br><br>
+
+    <select name="estado_modulo" id="estado">
+        <option value="">Seleccione</option>
+        <option value="1">Activo</option>
+        <option value="0">Inactivo</option>
+    </select><br><br>
+
+
+    <button type="submit">
+        Actualizar
+    </button>
+    
+</form>
+{% endfor %}
+
+{% endblock %}

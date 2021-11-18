@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for rol in data %}
+
+<form action="/UpdateRol/{{rol.0}}" method="POST" autocomplete="off">
+
+    <input type="text" name="id_rol" value="{{rol.0}}" placeholder="ID ROL"><br><br>
+
+    <input type="text" name="desc_rol" value="{{rol.1}}" placeholder="NOMBRE"><br><br>
+
+    <button type="submit">
+        Enviar
+    </button>
+
+</form>
+{% endfor %}
+
+{% endblock %}

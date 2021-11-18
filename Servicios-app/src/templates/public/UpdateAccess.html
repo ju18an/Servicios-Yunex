@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for acce in data %}
+
+<form action="/UpdateAccess/{{acce.0}}" method="POST" autocomplete="off">
+
+    <input type="text" name="id_permisos" value="{{acce.0}}" placeholder="PER_##">
+
+    <input type="text" name="desc_permisos" value="{{acce.1}}" placeholder="DESCRIPCIÓN DEL PERMISO">
+
+    <button type="submit">
+        Actualizar
+    </button>
+
+</form>
+
+{% endfor %}
+
+{% endblock %}

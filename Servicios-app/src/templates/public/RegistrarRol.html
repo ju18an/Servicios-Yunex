@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/AddRol" method="POST" autocomplete="off">
+
+    <input type="text" name="id_rol" placeholder="ID ROL">
+
+    <input type="text" name="desc_rol" placeholder="NOMBRE">
+
+    <button type="submit">
+        Enviar
+    </button>
+
+</form>
+
+<table style="text-align: center;" border="2px">
+<thead>
+    <tr>
+        <th>ID Rol</th>
+        <th>Nombre</th>
+        <th>Estado</th>
+    </tr>
+</thead>
+    
+
+<h2>ROLES</h2>
+
+{% for rol in data %}
+    
+    <tr>
+            <td>{{rol.0}}</td>
+            <td>{{rol.1}}</td>
+            <td>{{rol.2}}</td>
+
+            <td><form action="/DeleteRol/{{rol.0}}" method="post">
+                    <button  type="submit">
+                        Desactivar
+                    </button>
+                </form>
+            </td>
+            <td>
+                <a href="/UpdateRol/{{rol.0}}">Actualizar</a>
+            </td>
+    </tr>
+
+{% endfor %} 
+</table>
+
+{% endblock %}
