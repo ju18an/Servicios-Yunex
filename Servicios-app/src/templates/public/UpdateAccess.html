@@ -1,20 +1,55 @@
 {% extends "base.html" %}
 
+{% block prueba %}
+<style>
+  th,td {
+      padding: 0.4rem !important;
+  }
+  body>div {
+      box-shadow: 3px 5px 2px #888888;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: white;
+      opacity: 0.9;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 
 {% for acce in data %}
 
-<form action="/UpdateAccess/{{acce.0}}" method="POST" autocomplete="off">
+<div class="container">
+    <div class="modal-body mx-3">
 
-    <input type="text" name="id_permisos" value="{{acce.0}}" placeholder="PER_##">
+    <h1><b>{{acce.1}}</b></h1>
 
-    <input type="text" name="desc_permisos" value="{{acce.1}}" placeholder="DESCRIPCIÓN DEL PERMISO">
+        <form action="/UpdateAccess/{{acce.0}}" method="POST" autocomplete="off">
+            <div class="md-form mb-5">
+                <i class="fas fa-id-card-alt prefix dark-text"></i>
+                <input type="text" name="id_permisos" id="defaultForm-id_serial" class="form-control validate" value="{{acce.0}}">
+                <label data-error="wrong" data-success="right" for="defaultForm-id_serial">Cod permiso</label>
+            </div>
 
-    <button type="submit">
-        Actualizar
-    </button>
+            <div class="md-form mb-4">
+                <i class="fas fa-marker prefix dark-text"></i>
+                <input type="text" name="desc_permisos" id="defaultForm-nombre" class="form-control validate" value="{{acce.1}}">
+                <label data-error="wrong" data-success="right" for="defaultForm-nombre">Desc permiso</label>
+            </div>
 
-</form>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-default">
+                    Enviar 
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
 
 {% endfor %}
 

@@ -1,41 +1,110 @@
 {% extends "base.html" %}
 
+{% block prueba %}
+<style>
+  th,td {
+      padding: 0.4rem !important;
+  }
+  body>div {
+      box-shadow: 3px 5px 2px #888888;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: white;
+      opacity: 0.9;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 
-<form action="/AddPermiso" method="POST" autocomplete="off">
+<div class="container">
+<div class="modal-body mx-3">
 
-    <input type="text" name="id_permisos" placeholder="PER_##">
+<h1><b>Registrar permiso</b></h1>
 
-    <input type="text" name="desc_permisos" placeholder="DESCRIPCIÓN DEL PERMISO">
+    <form action="/AddPermiso" method="POST" autocomplete="off">
+        <div class="md-form mb-5">
+            <i class="fas fa-id-card-alt prefix dark-text"></i>
+            <input type="text" name="id_permisos" id="defaultForm-id_serial" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-id_serial">Cod permiso</label>
+        </div>
 
-    <button type="submit">
-        Enviar
-    </button>
+        <div class="md-form mb-4">
+            <i class="fas fa-marker prefix dark-text"></i>
+            <input type="text" name="desc_permisos" id="defaultForm-nombre" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-nombre">Desc permiso</label>
+        </div>
 
-</form>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-default">
+                Enviar 
+            </button>
+        </div>
+    </form>
+</div>
+</div>
+  
 
-<table style="text-align: center;" border="2px">
-<thead>
-    <tr>
-        <th>ID Permiso</th>
-        <th>Nombre</th>
-    </tr>
-</thead>
-    
-
-<h2>PERMISOS</h2>
-
-{% for acce in data %}
-    
-    <tr>
-            <td>{{acce.0}}</td>
-            <td>{{acce.1}}</td>
-            <td>
-                <a href="/UpdateAccess/{{acce.0}}">Actualizar</a>
-            </td>
-    </tr>
-
-{% endfor %} 
-</table>
-
-{% endblock %}
+<div class="containertablas">
+    <table id="tablax" class=" table-bordered table-hover" style="width:100%">
+        <thead>
+          <th>Cod Permiso</th>
+          <th>Descripción</th>
+          <th>Editar</th>
+        </thead>
+        <tbody>
+          {% for per in data %}
+  
+            <tr>
+                      <td>{{per.0}}</td>
+                      <td>{{per.1}}</td>
+                      <td>
+                      <a class="btn-danger btn-sm btn-amber"  href="/UpdateAccess/{{per.0}}"> <i class="fas fa-pencil-alt" style="color: white;"></i></a>
+                      </td>
+            </tr>
+          {% endfor %}
+  
+        </tbody>
+    </table>
+  </div>
+  
+  
+  
+  {% block script %}
+  
+  <script>
+    $(document).ready(function () {
+        $('#tablax').DataTable({
+            language: {
+                processing: "Tratamiento en curso...",
+                search: "Buscar&nbsp;:",
+                lengthMenu: "Agrupar de _MENU_ items",
+                info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+                infoEmpty: "No existen datos.",
+                infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                infoPostFix: "",
+                loadingRecords: "Cargando...",
+                zeroRecords: "No se encontraron datos con tu busqueda",
+                emptyTable: "No hay datos disponibles en la tabla.",
+                paginate: {
+                    first: "Primero",
+                    previous: "Anterior",
+                    next: "Siguiente",
+                    last: "Ultimo"
+                },
+                aria: {
+                    sortAscending: ": active para ordenar la columna en orden ascendente",
+                    sortDescending: ": active para ordenar la columna en orden descendente"
+                }
+            },
+            scrollY: 400,
+            lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+        });
+    });
+  </script>
+  
+  {% endblock %}
+  
+  
+  
+  {% endblock %}

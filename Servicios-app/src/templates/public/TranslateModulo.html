@@ -1,22 +1,124 @@
 {% extends "base.html" %}
 
+{% block prueba %}
+<style>
+  th,td {
+      padding: 0.4rem !important;
+  }
+  body>div {
+      box-shadow: 3px 5px 2px #888888;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: white;
+      opacity: 0.9;
+  }
+</style>
+{% endblock %}
+
+
 {% block content %}
 
-<form action="/TranslateModulo" method="post" autocomplete="off">
+<div class="containertablas">
+    <form action="/TransModule" method="post" autocomplete="off">
+        <div class="container">
+            <div class="modal-body mx-3">
+                <main class="cointainer">
+                    <div class="form-group">
+                        <label for="select1">SELECCIONE LA UBICACION</label>
+                        <select for="select1" id="select1" class="form-control" name="stock">
+                        <option value="">Seleccione</option>
+                            {% for stock in datastock %}
+                                <option value="{{stock.0}}">{{stock.2}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </main>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-default">
+                    Enviar 
+                </button>
+            </div>
+        </div>    
+    </form>
 
 
-    <h2>ALM ORIGEN</h2>
-    <select name="alm_origen" id="">
-        <option value="">Seleccione</option>
-    {% for alm in dataalm %}
-        <option value="{{alm.0}}">{{alm.2}}</option>
-    {% endfor %}
-    </select>
+
+    <div class="containertablas">
+        <table id="tablax" class=" table-bordered table-hover" style="width:100%">
+            <thead>
+            <th>Nº SERIAL</th>
+            <th>NOMBRE</th>
+            <th>PROYECTO</th>
+            <th>FABRICANTE</th>
+            <th>PROVEEDOR</th>
+            <th>CLIENTE</th>
+            <th>MODELO</th>
+            <th>FECHA CREACION</th>
+            <th>FECHA DE OPERACION</th>
+            <th>UBICACION</th>
+            <th></th>
+            </thead>
+            <tbody>
+            {% for mod in datamod %}
     
-    <button type="submit">Enviar</button>
-
-</form><br>
-
+                <tr>
+                        <td>{{mod.0}}</td>
+                        <td>{{mod.1}}</td>
+                        <td>{{mod.2}}</td>
+                        <td>{{mod.3}}</td>
+                        <td>{{mod.4}}</td>
+                        <td>{{mod.5}}</td>
+                        <td>{{mod.6}}</td>
+                        <td>{{mod.7}}</td>
+                        <td>{{mod.8}}</td>
+                        <td>{{mod.9}}</td>
+                        <td>trans</td>
+                </tr>
+            {% endfor %}
+    
+            </tbody>
+        </table>
+    </div>
+    
+    
+    
+    {% block script %}
+    
+    <script>
+        $(document).ready(function () {
+            $('#tablax').DataTable({
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+                scrollY: 400,
+                lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+            });
+        });
+    </script>
+    
+    {% endblock %}
+</div>
 
 
 {% endblock %}

@@ -1,59 +1,125 @@
 {% extends "base.html" %}
 
+{% block prueba %}
+<style>
+  th,td {
+      padding: 0.4rem !important;
+  }
+  body>div {
+      box-shadow: 3px 5px 2px #888888;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: white;
+      opacity: 0.9;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 
-<form action="/AddStock" method="POST" autocomplete="off">
+<div class="container">
+<div class="modal-body mx-3">
+
+  <h1><b>Registar almacen</b></h1>
+
+    <form action="/AddStock" method="POST" autocomplete="off">
+      <div class="md-form mb-5">
+        <i class="fas fa-id-card-alt prefix dark-text"></i>
+        <input type="text" name="id_almacen" id="defaultForm-id_almacen" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="defaultForm-id_almacen">SERIAL ALMACEN</label>
+      </div>
+
+      <div class="md-form mb-4">
+        <i class="fas fa-pencil-alt prefix dark-text"></i>
+        <input type="text" name="id_usuario" id="defaultForm-encargado" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="defaultForm-encargado">ENCARGADO</label>
+      </div>
+
+      <div class="md-form mb-4">
+        <i class="fas fa-edit prefix dark-text"></i>
+        <input type="text" name="desc_almacen" id="defaultForm-nombre" class="form-control validate">
+        <label data-error="wrong" data-success="right" for="defaultForm-nombre">NOMBRE</label>
+      </div>
+      
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-default" type="submit">
+          ENVIAR 
+        </button>
+      </div>
+  </form>
+</div>
+</div>
 
 
-    <input type="text" name="id_almacen" placeholder="SERIAL ALMACEN">
+<div class="containertablas">
+  <table id="tablax" class=" table-bordered table-hover">
+      <thead>
+          <th>Cod almacen</th>
+          <th>Nombre</th>
+          <th>Encargado 1</th>
+          <th>Estado</th>
+          <th>Eliminar</th>
+          <th>Actualizar</th>
+      </thead>
+      <tbody>
+        {% for stock in data %}
 
-    <input type="text" name="id_usuario" placeholder="Encargado">
+          <tr>
+                  <td>{{stock.0}}</td>
+                  <td>{{stock.2}}</td>
+                  <td>{{stock.1}}</td>
+                  <td>{{stock.3}}</td>
+                  <td>
+                    <form action="/DeleteStock/{{stock.0}}" method="post">
+                      <div class="text-center">
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt" style="color: white;"></i></button>       
+                      </div>
+                    </form>
+                    </td>
+                  <td>
+                    <a class="btn-danger btn-sm btn-amber"  href="/UpdateStock/{{stock.0}}"> <i class="fas fa-pencil-alt" style="color: white;"></i></a>
 
-    <input type="text" name="desc_almacen" placeholder="NOMBRE">
+                  </td>
+          </tr>
+        {% endfor %}
 
-    <button type="submit">Enviar</button>
+      </tbody>
+  </table>
+</div>
 
-</form>
 
-<table style="text-align: center;" border="2px">
-<thead>
-    <tr>
-        <th>COD ALMACEN</th>
-        <th>ENCARGADO</th>
-        <th>NOMBRE</th>
-        <th>ESTADO</th>
-    </tr>
-</thead>
-    
+{% block script %}
 
-<h2>PERMISOS</h2>
+<script>
+  $(document).ready(function () {
+      $('#tablax').DataTable({
+          language: {
+              processing: "Tratamiento en curso...",
+              search: "Buscar&nbsp;:",
+              lengthMenu: "Agrupar de _MENU_ items",
+              info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+              infoEmpty: "No existen datos.",
+              infoFiltered: "(filtrado de _MAX_ elementos en total)",
+              infoPostFix: "",
+              loadingRecords: "Cargando...",
+              zeroRecords: "No se encontraron datos con tu busqueda",
+              emptyTable: "No hay datos disponibles en la tabla.",
+              paginate: {
+                  first: "Primero",
+                  previous: "Anterior",
+                  next: "Siguiente",
+                  last: "Ultimo"
+              },
+              aria: {
+                  sortAscending: ": active para ordenar la columna en orden ascendente",
+                  sortDescending: ": active para ordenar la columna en orden descendente"
+              }
+          },
+          scrollY: 400,
+          lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+      });
+  });
+</script>
 
-{% for stock in data %}
-    
-    <tr>
-            <td>{{stock.0}}</td>
-            <td>{{stock.1}}</td>
-            <td>{{stock.2}}</td>
-        {% if stock.3 == 1 %}
-            <td>Activo</td>
-        {% else %}
-            <td>INACTIVO</td>
-
-        {% endif %}
-            <td><form action="/DeleteStock/{{stock.0}}" method="POST">
-                    <button  type="submit">
-                        Eliminar
-                    </button>
-                </form>
-            </td>
-            <td>
-                <a href="/UpdateStock/{{stock.0}}">Actualizar</a>
-            </td>
-
-    </tr>
-    
-
-{% endfor %} 
-</table>
-
+{% endblock %}
 {% endblock %}

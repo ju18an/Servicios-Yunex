@@ -1,41 +1,53 @@
 <!--Navbar -->
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark blue lighten-1 scrolling-navbar">
-    <a class="navbar-brand" id="navbar-brand" href="/">SIEMENS</a>
-  
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
-       <div class="navbar-nav ml-auto"></div>
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/AddUser">Usuarios
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/AddRol">Roles</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/AddPermiso">Permisos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/AddModulo">Add Modulos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/TranslateModulo">Trans Modulos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/AddStock">Almacenes</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item avatar">
-          <a class="nav-link p-0" href="#">
-            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0"
-              alt="avatar image" height="60">
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color" id="navbar">
+  <a class="navbar-brand" href="/"><img src="../../static/images/Siemens-Emblema.png" alt="Logo de siemens" class="SiemensLogo"></a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/AddModulo">MODULOS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/AddUser">USUARIOS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/AddStock">ALMACEN</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/AddPermiso">PERMISOS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/AddRol">ROLES</a>
+      </li><li class="nav-item">
+        <a class="nav-link" href="/TransModule">TRANLADO MODULOS</a>
+      </li>
 
-  
+
+    
+     
+    </ul>
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item">
+        <a class="nav-link waves-effect waves-light" href="https://twitter.com/yunextraffic">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-effect waves-light">
+          <i class="fab fa-google-plus-g"></i>
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-default"
+          aria-labelledby="navbarDropdownMenuLink-333">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Menu</a>
+          <a class="dropdown-item" href="/Logout">Cerrar Sesion</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

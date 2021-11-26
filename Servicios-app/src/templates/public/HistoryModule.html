@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table style="text-align: center;" border="2px">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>responsable</th>
+            <th>almacen</th>
+            <th>Fecha</th>
+            <th>descripcion</th>
+        </tr>
+    </thead>
+    
+    
+    {% for mod in data %}
+        
+        <tr>
+                <td>{{mod.0}}</td>
+                <td>{{mod.1}}</td>
+                <td>{{mod.2}}</td>
+                <td>{{mod.3}}</td>
+                <td>{{mod.4}}</td>
+            
+        </tr>
+    
+    {% endfor %} 
+    </table>
+
+{% endblock %}

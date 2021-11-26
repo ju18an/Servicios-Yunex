@@ -1,42 +1,103 @@
 {% extends "base.html" %}
 
+{% block prueba %}
+<style>
+  th,td {
+      padding: 0.4rem !important;
+  }
+  body>div {
+      box-shadow: 3px 5px 2px #888888;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: white;
+      opacity: 0.9;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 
 {% for mod in data %}
-
-<form action="/UpdateModulo/{{mod.0}}" method="POST" autocomplete="off">
-
-
-    <input type="text" name="id_modulo" value="{{mod.0}}" placeholder="Nº SERIAL" readonly="readonly"><br><br>
-
-    <input type="text" name="nombre" value="{{mod.1}}"  placeholder="NOMBRE"><br><br>
-
-    <input type="text" name="proyecto" value="{{mod.2}}"  placeholder="PROYECTO"><br><br>
-
-    <input type="text" name="fabricante" value="{{mod.3}}" placeholder="FABRICANTE"><br><br>
-
-    <input type="text" name="proveedor" value="{{mod.4}}" placeholder="PROVEEDOR"><br><br>
-
-    <input type="text" name="cliente" value="{{mod.5}}"  placeholder="CLIENTE"><br><br>
-
-    <input type="text" name="modelo" value="{{mod.6}}"  placeholder="MODELO"><br><br>
-
-    <input type="date" name="fecha_creacion" value="{{mod.7}}"  placeholder="FECHA DE CREACION"><br><br>
-
-    <input type="date" name="fecha_inicio_operacion" value="{{mod.8}}"  placeholder="FECHA DE INICIO DE OPERACION"><br><br>
-
-    <select name="estado_modulo" id="estado">
-        <option value="">Seleccione</option>
-        <option value="1">Activo</option>
-        <option value="0">Inactivo</option>
-    </select><br><br>
-
-
-    <button type="submit">
-        Actualizar
-    </button>
+<div class="container">
+    <div class="modal-body mx-3">
     
-</form>
+      <h1><b>Nº {{mod.0}}</b></h1><br>
+    
+      <form action="/UpdateModulo/{{mod.0}}" method="POST" autocomplete="off">
+        <div class="md-form mb-5">
+          <i class="fas fa-id-card-alt prefix dark-text"></i>
+          <input type="text" name="id_modulo" id="defaultForm-id_serial" class="form-control validate" value="{{mod.0}}">
+          <label data-error="wrong" data-success="right" for="defaultForm-id_serial">Nº SERIAL</label>
+        </div>
+    
+        <div class="md-form mb-4">
+          <i class="fas fa-marker prefix dark-text"></i>
+          <input type="text" name="nombre" id="defaultForm-nombre" class="form-control validate" value="{{mod.1}}">
+          <label data-error="wrong" data-success="right" for="defaultForm-nombre">NOMBRE</label>
+        </div>
+    
+        <div class="md-form mb-3">
+          <i class="fas fa-folder-open prefix dark-text"></i>
+          <input type="text" name="proyecto" id="defaultForm-proyecto" class="form-control validate" value="{{mod.2}}">
+          <label data-error="wrong" data-success="right" for="defaultForm-proyecto">PROYECTO</label>
+        </div>
+    
+        <div class="md-form mb-3">
+          <i class="fas fa-suitcase prefix dark-text"></i>
+          <input type="text" name="fabricante" id="defaultForm-fabricante" class="form-control validate" value="{{mod.3}}">
+          <label data-error="wrong" data-success="right" for="defaultForm-fabricante">FABRICANTE</label>
+        </div>
+    
+        <div class="md-form mb-3">
+          <i class="fas fa-laptop-code prefix dark-text"></i>
+          <input type="text" name="proveedor" id="defaultForm-proveedor" class="form-control validate" value="{{mod.4}}">
+          <label data-error="wrong" data-success="right" for="defaultForm-provedor">PROVEEDOR</label>
+        </div>
+    
+        <div class="md-form mb-3">
+          <i class="fas fa-user-circle prefix dark-text"></i>
+          <input type="text" name="cliente" id="defaultForm-cliente" class="form-control validate" value="{{mod.5}}">
+          <label data-error="wrong" data-success="right" for="defaultForm-cliente">CLIENTE</label>
+        </div>
+    
+        <div class="md-form mb-3">
+          <i class="fas fa-clipboard-list prefix dark-text"></i>
+          <input type="number" name="modelo" id="defaultForm-modelo" class="form-control validate" value="{{mod.6}}">
+          <label data-error="wrong" data-success="right" for="defaultForm-modelo">MODELO</label>
+        </div>
+    
+        <div class="md-form mb-3">
+          <i class="fas fa-calendar-alt prefix dark-text"></i>
+          <input type="date" name="fecha_creacion" id="defaultForm-fecha_creacion" class="form-control validate" value="{{mod.7}}">
+          <label data-error="wrong" data-success="right" for="defaultForm-fecha_creacion">FECHA CREACION</label>
+        </div>
+    
+        <div class="md-form mb-3">
+          <i class="fas fa-calendar-check prefix dark-text"></i>
+          <input type="date" name="fecha_inicio_operacion" id="defaultForm-fecha_operacion" class="form-control validate" value="{{mod.8}}">
+          <label data-error="wrong" data-success="right" for="defaultForm-fecha_operacion">FECHA DE OPERCACION</label>
+        </div>
+    
+        <main class="cointainer">
+         <div class="form-group">
+             <label for="select1">SELECCIONE EL ESTADO</label>
+              <select for="select1" id="select1" class="form-control" name="estado_modulo">
+                <option value="">Seleccione</option>               
+                      <option value="1">Activo</option>
+                      <option value="2">Inactivo</option>                
+              </select>
+          </div>
+        </main>
+    
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-default">
+             Enviar 
+          </button>
+        </div>
+      </form>
+    </div>
+    </div>
+
 {% endfor %}
 
 {% endblock %}

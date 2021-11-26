@@ -1,28 +1,71 @@
 {% extends "base.html" %}
 
+{% block prueba %}
+<style>
+  th,td {
+      padding: 0.4rem !important;
+  }
+  body>div {
+      box-shadow: 3px 5px 2px #888888;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: white;
+      opacity: 0.9;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 
 {% for stock in data %}
 
-<form action="/UpdateStock/{{stock.0}}" method="POST" autocomplete="off">
+<div class="container">
+    <div class="modal-body mx-3">
 
-    <input type="text" name="id_almacen" value="{{stock.0}}" placeholder="ID USUARIO">
+    <h1><b>{{stock.2}}</b></h1>
 
-    <input type="text" name="id_usuario" value="{{stock.1}}" placeholder="NOMBRE">
+        <form action="/UpdateStock/{{stock.0}}" method="POST" autocomplete="off">
+            <div class="md-form mb-5">
+                <i class="fas fa-id-card-alt prefix dark-text"></i>
+                <input type="text" name="id_almacen" id="defaultForm-id_almacen" class="form-control validate" value="{{stock.0}}">
+                <label data-error="wrong" data-success="right" for="defaultForm-id_almacen">SERIAL ALMACEN</label>
+            </div>
 
-    <input type="text" name="desc_almacen" value="{{stock.2}}" placeholder="APELLIDO">
+            <div class="md-form mb-4">
+                <i class="fas fa-edit prefix dark-text"></i>
+                <input type="text" name="desc_almacen" id="defaultForm-nombre" class="form-control validate" value="{{stock.2}}">
+                <label data-error="wrong" data-success="right" for="defaultForm-nombre">NOMBRE</label>
+            </div>
 
-    <select name="estado_almacen" id="estado_almacen">
-        <option value="">Seleccione</option>
-                <option value="1">ACTIVO</option>          
-                <option value="0">INACTIVO</option>
-    </select>
+            <div class="md-form mb-4">
+                <i class="fas fa-pencil-alt prefix dark-text"></i>
+                <input type="text" name="id_usuario" id="defaultForm-encargado" class="form-control validate" value="{{stock.1}}">
+                <label data-error="wrong" data-success="right" for="defaultForm-encargado">ENCARGADO</label>
+            </div>
 
-    <button type="submit">
-        Actualizar
-    </button>
-
-</form>
-
+            <main class="cointainer">
+                <div class="form-group">
+                    <label for="select1">SELECCIONE EL ESTADO</label>
+                     <select for="select1" id="select1" class="form-control" name="estado_almacen">
+                       <option value="">Seleccione</option>               
+                             <option value="1">Activo</option>
+                             <option value="2">Inactivo</option>                
+                     </select>
+                 </div>
+               </main>
+                
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-default" type="submit">
+                    ENVIAR 
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br>
 {% endfor %}
+
 {% endblock %}

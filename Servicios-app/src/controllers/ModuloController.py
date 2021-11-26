@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect, sessions
+from flask import request, render_template, redirect, flash
 from flask.views import MethodView
 from src.db import db
 from flask import session
@@ -34,22 +34,38 @@ class AddModuloController(MethodView):
         desctranslado = "Creación del modulo"
 
         with db.cursor() as cur:
-            cur.execute("INSERT INTO modulos (id_modulo, nombre, proyecto, fabricante, proveedor, cliente, modelo, fecha_creacion, fecha_inicio_operacion, ubicacion, estado_modulo) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id_modulo, nombre, proyecto, fabricante, proveedor, cliente, modelo, fecha_creacion, fecha_inicio_operacion, ubicacion, estado_modulo))        
-            cur.connection.commit()
+            try:
+                
+                cur.execute("INSERT INTO modulos (id_modulo, nombre, proyecto, fabricante, proveedor, cliente, modelo, fecha_creacion, fecha_inicio_operacion, ubicacion, estado_modulo) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (id_modulo, nombre, proyecto, fabricante, proveedor, cliente, modelo, fecha_creacion, fecha_inicio_operacion, ubicacion, estado_modulo))        
+                cur.connection.commit()
 
-        with db.cursor() as cur:
-            cur. execute("INSERT INTO historial (modulos_id_modulo, usuario_id_usuario, fecha_translado, desc_translado) VALUES (%s, %s, %s, %s)", (id_modulo, sessionuser, fecha, desctranslado))
-            cur.connection.commit()
+                cur. execute("INSERT INTO historial (modulos_id_modulo, usuario_id_usuario, almacenes_id_almacen, fecha_translado, desc_translado) VALUES (%s, %s, %s, %s, %s)", (id_modulo, sessionuser, ubicacion, fecha, desctranslado))
+                cur.connection.commit()
 
-        return redirect('/AddModulo')
+                flash('El modulo se ah registrado corectamente', "success")
+            except:
+
+                flash('Ah ocurrido un problema al registrar el modulo', "error")
+
+            return redirect('/AddModulo')
 
 class DeleteModuloController(MethodView):
 
     def post(self, modulo):
 
         with db.cursor() as cur:
-            cur.execute("DELETE FROM modulos WHERE id_modulo = %s", (modulo))
-            cur.connection.commit()
+            try:
+                cur.execute("DELETE FROM modulos WHERE id_modulo = %s", (modulo))
+                cur.connection.commit()
+
+                cur.execute("DELETE FROM historial WHERE modulos_id_modulo = %s", (modulo))
+                cur.connection.commit()
+
+                flash('El modulo se ah eliminado corectamente', "success")
+
+            except:
+
+                flash('Ah ocurrido un problema al eliminar el modulo', "error")
 
             return redirect("/AddModulo")
 
@@ -57,8 +73,10 @@ class UpdateModuloController(MethodView):
     def get(self, modulo):
 
         with db.cursor() as cur:
+            
             cur.execute("SELECT * FROM modulos WHERE id_modulo = %s", (modulo, ))
             data = cur.fetchall()
+
             return render_template('public/UpdateModulo.html', data=data)
 
     def post(self, modulo):
@@ -75,44 +93,51 @@ class UpdateModuloController(MethodView):
         estado_modulo = request.form['estado_modulo']
 
         with db.cursor() as cur:
-            cur.execute("UPDATE historial SET modulos_id_modulo= %s  WHERE modulos_id_modulo = %s", (id_modulo, modulo))
-            cur.connection.commit()
-            
-        with db.cursor() as cur:
-            cur.execute("UPDATE modulos SET id_modulo = %s, nombre = %s, proyecto = %s, fabricante = %s, proveedor = %s, cliente = %s, modelo = %s, fecha_creacion = %s, fecha_inicio_operacion = %s, estado_modulo = %s WHERE id_modulo = %s", (id_modulo, nombre, proyecto, fabricante, proveedor, cliente, modelo, fecha_creacion, fecha_inicio_operacion, estado_modulo, modulo))
-            cur.connection.commit()
-        
-        
 
+            try:
+                cur.execute("UPDATE historial SET modulos_id_modulo= %s  WHERE modulos_id_modulo = %s", (id_modulo, modulo))
+                cur.connection.commit()
+
+                cur.execute("UPDATE modulos SET id_modulo = %s, nombre = %s, proyecto = %s, fabricante = %s, proveedor = %s, cliente = %s, modelo = %s, fecha_creacion = %s, fecha_inicio_operacion = %s, estado_modulo = %s WHERE id_modulo = %s", (id_modulo, nombre, proyecto, fabricante, proveedor, cliente, modelo, fecha_creacion, fecha_inicio_operacion, estado_modulo, modulo))
+                cur.connection.commit()
+
+                flash('El modulo se ah editado corectamente', "success")
+
+            except:
+
+                flash('Ah ocurrido un problema al editar el modulo', "error")
+        
             return redirect("/AddModulo")
 
-class TranslateModuloController(MethodView):
+class HistoryModuleController(MethodView):
+    def get(self, modulo):
+
+        with db.cursor() as cur:
+            cur.execute("SELECT * FROM historial WHERE modulos_id_modulo = %s", (modulo, ))
+            data = cur.fetchall()
+
+            return render_template('public/HistoryModule.html', data=data)
+
+class TransModuleController(MethodView):
     def get(self):
 
         with db.cursor() as cur:
             cur.execute("SELECT * FROM modulos")
-            data = cur.fetchall()
+            datamod = cur.fetchall()
+
             cur.execute("SELECT * FROM almacenes")
-            dataalm = cur.fetchall()
-            return render_template('public/TranslateModulo.html', data=data, dataalm=dataalm)
-    
+            datastock = cur.fetchall()
+
+            return render_template('public/TranslateModulo.html', datamod=datamod, datastock=datastock)
+
     def post(self):
 
-        stock = request.form['alm_origen']
+        stock = request.form['stock']
 
         with db.cursor() as cur:
             cur.execute("SELECT * FROM modulos WHERE ubicacion = %s", (stock))
-            data = cur.fetchall()
+            datamod = cur.fetchall()
             cur.execute("SELECT * FROM almacenes")
-            dataalm = cur.fetchall()
+            datastock = cur.fetchall()
 
-            return render_template('public/TranslateModuloInv.html', data=data, dataalm=dataalm)
-        #return f"El almacen es {stock}"
-
-class TranslateModuloFinController(MethodView):
-    def get(self):
-        return "ENTRO AL GET"
- 
-    def post(self, modulo):
-
-        return f"Los valores son {modulo}"
+            return render_template('public/TranslateModuloInv.html', datamod=datamod, datastock=datastock)

@@ -9,6 +9,7 @@ from src.controllers.errors import NotFoundController
 routes = {
         # Ruta del Index
             "Index": "/", "Index_controller": IndexController.as_view("Index"), 
+            "Logout": "/Logout", "Logout_Controller": LogoutController.as_view("Logout"),
 
         # Rutas del Usuario
             "AddUser": "/AddUser", "AddUser_Controller": AddUserController.as_view("hello"),
@@ -28,8 +29,8 @@ routes = {
             "AddModulo": "/AddModulo", "AddModulo_Controller": AddModuloController.as_view("AddModulo"),
             "DeleteModulo": "/DeleteModulo/<modulo>", "DeleteModulo_Controller": DeleteModuloController.as_view("DeleteModulo"),
             "UpdateModulo": "/UpdateModulo/<modulo>", "UpdateModulo_Controller": UpdateModuloController.as_view("UpdateModulo"),
-            "TranslateModulo": "/TranslateModulo", "TranslateModulo_Controller": TranslateModuloController.as_view("TranslateModulo"),
-            "TranslateModuloFin": "/TranslateModuloFin/<modulo>", "TranslateModuloFin_Controller": TranslateModuloFinController.as_view("TranslateModuloFin"),
+            "HistoryModule": "/HistoryModule/<modulo>", "HistoryModule_Controller": HistoryModuleController.as_view("HistoryModule"),
+            "TransModule": "/TransModule", "TransModule_Controller": TransModuleController.as_view("TransModule"),
 
         #Rutas de Stock
             "AddStock": "/AddStock", "AddStock_Controller": AddStockController.as_view("AddStock"),

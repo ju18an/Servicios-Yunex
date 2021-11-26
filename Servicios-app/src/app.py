@@ -5,10 +5,13 @@ app = Flask(__name__)
 
 #Rutas de la Aplicacion
 
-app.secret_key = 'my_secret_key'
+app.config.from_mapping( 
+    SECRET_KEY = 'development'
+)
 
 # Rutas de Index
 app.add_url_rule(routes["Index"], view_func=routes["Index_controller"])
+app.add_url_rule(routes["Logout"], view_func=routes["Logout_Controller"])
 
 #Rutas de Usuario
 app.add_url_rule(routes["AddUser"], view_func=routes["AddUser_Controller"])
@@ -28,8 +31,8 @@ app.add_url_rule(routes["UpdateAccess"], view_func=routes["UpdateAccess_Controll
 app.add_url_rule(routes["AddModulo"], view_func=routes["AddModulo_Controller"])
 app.add_url_rule(routes["DeleteModulo"], view_func=routes["DeleteModulo_Controller"])
 app.add_url_rule(routes["UpdateModulo"], view_func=routes["UpdateModulo_Controller"])
-app.add_url_rule(routes["TranslateModulo"], view_func=routes["TranslateModulo_Controller"])
-app.add_url_rule(routes["TranslateModuloFin"], view_func=routes["TranslateModuloFin_Controller"])
+app.add_url_rule(routes["HistoryModule"], view_func=routes["HistoryModule_Controller"])
+app.add_url_rule(routes["TransModule"], view_func=routes["TransModule_Controller"])
 
 #Rutas de Stock
 app.add_url_rule(routes["AddStock"], view_func=routes["AddStock_Controller"])

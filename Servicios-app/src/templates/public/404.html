@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}- No encontrado {% endblock %}
+
+{% block prueba %}
+<style>
+  th,td {
+      padding: 0.4rem !important;
+  }
+  body>div {
+      box-shadow: 3px 5px 2px #888888;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: white;
+      opacity: 0.9;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+	<section id="not-found">
+		<div class="container">
+		<div class="row">
+			<div class="col-ig-6 d-flex">
+				<div id="content-not-found" class="justify-content-center align-self-center mx-auto my-5">
+					<h1>No se ha encontrado la pagina</h1>
+					<p>{{error}}</p>
+					<a href="/" class="btn btn-primary btn-ig">
+						Ir a inicio <i class="fas fa-home"></i>
+					</a>
+				</div>
+			</div>
+			<div class="col-ig-6 d-flex">
+				<div id="content-not-found" class="justify-content-center align-self-center mx-auto my-5">
+					<img src="https://www.bungalowsbuenavista.com.ar/includes/404.png" width="800" height="500" alt="No encontrado">
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+{% endblock %}

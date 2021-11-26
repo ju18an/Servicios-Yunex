@@ -1,39 +1,100 @@
 {% extends "base.html" %}
 
+{% block prueba %}
+<style>
+  th,td {
+      padding: 0.4rem !important;
+  }
+  body>div {
+      box-shadow: 3px 5px 2px #888888;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: white;
+      opacity: 0.9;
+  }
+</style>
+{% endblock %} 
+
 {% block content %}
 
-{% for user in data %}
+{% for user in data%}
 
-<form action="/UpdateUser/{{user.0}}" method="POST" autocomplete="off">
 
-    <input type="text" name="id_usuario" value="{{user.0}}" placeholder="ID USUARIO">
 
-    <input type="text" name="nombre" value="{{user.1}}" placeholder="NOMBRE">
+<div class="container">
+  <div class="modal-body mx-3">
 
-    <input type="text" name="apellido" value="{{user.2}}" placeholder="APELLIDO">
+    <h1><b>{{user.1}} {{user.2}}</b></h1>
+  
+    <form action="/UpdateUser" method="POST" autocomplete="off">
+      <div class="md-form mb-5">
+        <i class="fas fa-id-card-alt prefix dark-text"></i>
+        <input type="text" name="id" id="defaultForm-id_serial" class="form-control validate" value="{{user.0}}" readonly>
+        <label data-error="wrong" data-success="right" for="defaultForm-id_serial">Id Usuario</label>
+      </div>
+  
+      <div class="md-form mb-4">
+        <i class="fas fa-marker prefix dark-text"></i>
+        <input type="text" name="nombre" id="defaultForm-nombre" class="form-control validate" value="{{user.1}}">
+        <label data-error="wrong" data-success="right" for="defaultForm-nombre">Nombre</label>
+      </div>
+  
+      <div class="md-form mb-3">
+        <i class="fas fa-folder-open prefix dark-text"></i>
+        <input type="text" name="apellido" id="defaultForm-proyecto" class="form-control validate" value="{{user.2}}">
+        <label data-error="wrong" data-success="right" for="defaultForm-proyecto">Apellido</label>
+      </div>
+  
+      <div class="md-form mb-3">
+        <i class="fas fa-suitcase prefix dark-text"></i>
+        <input type="text" name="correo_electronico" id="defaultForm-fabricante" class="form-control validate" value="{{user.3}}">
+        <label data-error="wrong" data-success="right" for="defaultForm-fabricante">E-mail</label>
+      </div>
+  
+      <div class="md-form mb-3">
+        <i class="fas fa-laptop-code prefix dark-text"></i>
+        <input type="text" name="telefono" id="defaultForm-proveedor" class="form-control validate" value="{{user.4}}">
+        <label data-error="wrong" data-success="right" for="defaultForm-provedor">Telefono</label>
+      </div>
+  
+      <div class="md-form mb-3">
+        <i class="fas fa-user-circle prefix dark-text"></i>
+        <input type="password" name="password" id="defaultForm-cliente" class="form-control validate" value="{{user.5}}">
+        <label data-error="wrong" data-success="right" for="defaultForm-cliente">Contraseña</label>
+      </div>
 
-    <input type="text" name="correo_electronico" value="{{user.3}}" placeholder="CORREO ELECTRONICO">
+      <main class="cointainer">
+        <div class="form-group">
+            <label for="select1">Seleccione el rol</label>
+             <select for="select1" id="select1" class="form-control" name="rol_id_rol"  >
+               <option value="">Seleccione</option>
+                 {% for rol in datarol %}
+                     <option value="{{rol.0}}">{{rol.1}}</option>
+                 {% endfor %}
+             </select>
+         </div>
+       </main>
 
-    <input type="text" name="telefono" value="{{user.4}}" placeholder="TELEFONO">
+       <main class="cointainer">
+        <div class="form-group">
+            <label for="select1">Seleccione el permiso</label>
+             <select for="select1" id="select1" class="form-control" name="permisos_id_permisos"  >
+               <option value="">Seleccione</option>
+                 {% for per in dataper %}
+                     <option value="{{per.0}}">{{per.1}}</option>
+                 {% endfor %}
+             </select>
+         </div>
+       </main>
 
-    <select name="rol_id_rol" id="rol">
-        <option value="">Seleccione un rol</option>
-            {% for rol in datarol %}
-                <option value="{{rol.0}}">{{rol.1}}</option>            
-            {% endfor %}
-    </select>
-
-    <select name="permisos_id_permisos" id="permisos">
-        <option value="">Seleccione un permiso</option>
-            {% for per in dataper %}
-                <option value="{{per.0}}">{{per.1}}</option>            
-            {% endfor %}
-    </select>
-
-    <button type="submit">
-        Actualizar
-    </button>
-</form>
+       <div class="d-flex justify-content-center">
+        <button class="btn btn-default" type="submit">
+           Enviar 
+        </button>
+      </div>
+    </form>
+</div>
+</div><br><br>
 
 {% endfor %}
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect
+from flask import request, render_template, redirect, flash
 from flask.views import MethodView
 from src.db import db
 
@@ -18,8 +18,15 @@ class AddPermisoController (MethodView):
         
 
         with db.cursor() as cur:
-            cur.execute("INSERT INTO permisos (id_permisos, desc_permisos) VALUES(%s, %s)", (id_permiso, desc_permiso))        
-            cur.connection.commit()
+            try:
+                cur.execute("INSERT INTO permisos (id_permisos, desc_permisos) VALUES(%s, %s)", (id_permiso, desc_permiso))        
+                cur.connection.commit()
+                
+                flash('El permiso se ah registrado corectamente', "success")
+
+            except:
+
+                flash('Ah ocurrido un problema al registrar el permiso', "error")
 
         return redirect('/AddPermiso')
             
@@ -37,7 +44,15 @@ class UpdateAccessController(MethodView):
         desc_access = request.form ['desc_permisos']
 
         with db.cursor() as cur:
-            cur.execute("UPDATE permisos SET id_permisos = %s, desc_permisos = %s WHERE id_permisos = %s", (id_access, desc_access, acce))
-            cur.connection.commit()
+            try:
+
+                cur.execute("UPDATE permisos SET id_permisos = %s, desc_permisos = %s WHERE id_permisos = %s", (id_access, desc_access, acce))
+                cur.connection.commit()
+            
+                flash('El permiso se ah editado corectamente', "success")
+
+            except:
+
+                flash('Ah ocurrido un problema al editar el permiso', "error")
 
             return redirect("/AddPermiso")

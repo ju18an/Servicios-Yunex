@@ -1,20 +1,56 @@
 {% extends "base.html" %}
 
+{% block prueba %}
+<style>
+  th,td {
+      padding: 0.4rem !important;
+  }
+  body>div {
+      box-shadow: 3px 5px 2px #888888;
+      border: 2px solid black;
+      border-radius: 10px;
+      background-color: white;
+      opacity: 0.9;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 
 {% for rol in data %}
 
-<form action="/UpdateRol/{{rol.0}}" method="POST" autocomplete="off">
+<div class="container">
+  <div class="modal-body mx-3">
+    
+    <h1><b>Registrar rol</b></h1>
 
-    <input type="text" name="id_rol" value="{{rol.0}}" placeholder="ID ROL"><br><br>
+      <form action="/UpdateRol/{{rol.0}}" method="POST" autocomplete="off">
+          <div class="md-form mb-5">
+              <i class="fas fa-id-card-alt prefix dark-text"></i>
+              <input type="text" name="id_rol" id="defaultForm-id_serial" class="form-control validate" value="{{rol.0}}">
+              <label data-error="wrong" data-success="right" for="defaultForm-id_serial">Cod rol</label>
+          </div>
 
-    <input type="text" name="desc_rol" value="{{rol.1}}" placeholder="NOMBRE"><br><br>
+          <div class="md-form mb-4">
+              <i class="fas fa-marker prefix dark-text"></i>
+              <input type="text" name="desc_rol" id="defaultForm-nombre" class="form-control validate" value="{{rol.1}}">
+              <label data-error="wrong" data-success="right" for="defaultForm-nombre">Desc rol</label>
+          </div>
 
-    <button type="submit">
-        Enviar
-    </button>
+          <div class="d-flex justify-content-center">
+              <button class="btn btn-default">
+                  Enviar 
+              </button>
+          </div>
+      </form>
+  </div>
+</div>
 
-</form>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+
 {% endfor %}
 
 {% endblock %}
